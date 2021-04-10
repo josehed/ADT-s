@@ -1,0 +1,12 @@
+{
+  DO A FROM 1 TO 360 {
+    FD 5
+    LT 1
+    DO B FROM 1 TO 4 { 
+      RT 90   
+      FD 5
+    }
+  }
+}
+
+

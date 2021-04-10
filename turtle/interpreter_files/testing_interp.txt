@@ -1,0 +1,84 @@
+When building my interpreter I started with my whole parser code as a base. I then started
+to chop and change it where i needed to and tested as i went. Like with the parser I
+started with the with the functions that would be easier to code and that stand up on
+their onward worked my way up. Below is a description of how i went about testing my code
+with white unit testing and black box testing. 
+
+Black box testing with .ttl file. All of the .ttl files made for the parser were also 
+tested on the interpreter but seeing as they have been covered in the parser testing
+write up I will leave them out of this one and start with test_interp_10_fail.
+
+test_interp_10_invalid - tests that an unset variable fails
+
+test_interp_10_valid - shows that once the variable it set it passes
+
+test_interp_11_invalid - fails as the loop is descending
+
+test_interp_11_valid - nested do loops perform as expected and holds values of vars
+between loops
+
+test_interp_12_invalid - testing prefix notation
+
+test_interp_13_invalid - testing infix notation  
+
+test_interp_13_valid - testing RPN and all operators
+
+test_interp_14_invalid - testing division by 0
+
+
+
+Assert testing for interpreter
+Originally I had kept all of my parser testing in my new interpreter test file as i felt
+that having extra testing was never going to be a bad thing and it did actually help me
+catch some small errors whilst writing my interpreter. However after i reached to many
+strcmp commands which i use to create the strings which will are then tested i received
+an error saying that then "variable tracking size limit exceeded" this was fixed by
+removing a chunk of my parser testing. I did keep a few of these tests which tested 
+the larger functions just as a base. 
+
+The Following is covers the assert testing for the interpreter.  
+
+Testing Extract_Num Line 328
+Assert testing for this function made sure that when it was passed a valid var which had
+been set that the number it was set too was extracted and placed in the right place.
+this function will except any number though such as .897 and others which i have deemed to 
+be invalid, However these numbers will have been filtered out before this function is 
+reached by Valid_Varnum so I don't need to check for them. 
+
+Testing Do_Move Line 358
+For the testing of this function I simply fed it some sample strings such as FD A where
+that starting position, angle and move distance (both number and variable) were pre
+programmed. I then test that the coordinates after the move were what i would expect. 
+relatively simple movements were tried as complex ones were harder to test. These simple
+movements do however show that the function works as intended.
+
+Testing Turn_Left & Turn_Right Line 392, 448
+Testing for these two functions was very similar. Short sets of strings would be run
+through the functions such as LT 89 and RT A, positive and negative functions were both
+thrown at it to make sure it interpreted them correctly. After the functions had processed
+the command I then checked to make sure that the resulting angle stored was what was
+expected. Numbers larger than 360 were tested as well negative numbers which would take us
+below 0 degrees to make sure that the angle rolled around correctly. 
+
+Testing Set_Var Line 530
+Limited testing was done on this functions as it is relatively simple. A and Z were passed
+to it as edge cases and then I checked that the corresponding cells on the set array were
+set to true rather than false which they are all set to by default.
+
+Testing Do_Do Line 542
+again sample lists of strings were created as well as pre setting variables such as the
+coordinates for x and y, the angle and the values of variables used. These strings were
+then sent through the function to make sure that they outputted the expected results.
+Nested Do loops were the main thing that needed to be tested, making sure that variables
+values changed appropriately between loops. As the Do_Do function is called from the
+Valid_Do function this is what is called during testing.
+
+Testing Do_Polish & Do_set Line 678, 716
+Testing was done by feeding both function valid and invalid sets of strings and
+then comparing the results. Testing was done to make sure only valid RPN is accepted, 
+pre-fix and in-fix notation was tested to make sure it failed and I also made sure that
+any RPN with only one lone value was valid and that the variable being set was set to the 
+value of that lone variable. I also tested to make sure that you cannot divide by 0 as in 
+C this gives you INF which isn't a valid number.
+
+

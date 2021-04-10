@@ -1,0 +1,7 @@
+{
+   SET B := 45 ;
+   DO A FROM 1 TO 100 {
+      FD A
+      RT B
+   }
+}

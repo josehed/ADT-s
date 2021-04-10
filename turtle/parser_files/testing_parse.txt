@@ -1,0 +1,90 @@
+Testing for the parser started as soon as my first function was complete. I started
+writing functions which handled the simple commands from the bottoms of the list of
+grammar and then moved up. This meant starting with functions such a Valid_var, Valid_num 
+and Valid_Op, As these functions stand up on there own it made it easy to extensively test
+them with assert testing which can be found in my pars_test.c file. This pars_test.c
+follows my line of thinking when programming so it shows what was tested when.
+
+From there I made my way up the list of commands writing the functions and testing for
+these functions as i went. However the testing for Valid_Do was left until a bit after it
+was written as it relied on using the Valid_Instructlst function which at the time of
+writing was not complete. Almost all of my functions were made to return bools which
+aided in the testing assert testing of them. however this did mean that making specialised
+error messages for each and every case was hard so I decided to implement a system by
+which is there is something wrong with the file being inputted and a false is returned up
+by the functions a error message will be displayed with the number of the token which
+has caused the error as well as the string which that token represents. 
+
+Once all of the parsing functions were completed and tested through the use of assert 
+testing I moved on to creating .ttl file which were designed to fail and made sure that
+caught the mistakes and also pointed them out within the error message. tests files can be
+found in the parse_test_files folder along with some of your .ttl files which were testing
+to make sure they passed and also some of my own files designed to pass.
+
+test_parse_1_invalid.ttl - Checks has too many decimal points in one number.
+
+test_parse_2_invalid.ttl - Wrong type of closing bracket to finish file.
+
+test_parse_3_invalid.ttl - Too many closing brackets / junk after the end of
+the file.
+
+test_parse_4_invalid.ttl - Uses = rather than := / also tested with assert testing.
+
+test_parse_5_invalid.ttl - Lower case letter in FROM / heavily tested with assert testing.
+
+test_parse_6_invalid.ttl - Lower case letter in RT / heavily tested with assert testing.
+
+test_parse_7_invalid.ttl - No opening bracket on do loop.
+
+test_parse_8_invalid.ttl - Invalid operator in polish.
+
+test_parse_9_invalid.ttl - No closing ; to finish / close polish expression.
+
+test_parse_1 & 2 valid and are just a bit longer to check that the parser can handle
+them.
+
+The following section is a overview of the assert testing for each function.
+
+Assert testing.
+Most of my Assert testing consisted of copying a number of chars into different cells of
+an array within the test struct. this allowed me to build parts or whole test files to
+pass through my functions. 
+
+Testing of Valid_Op Line 19
+This was relatively simple as the function can take either a +, -, * or / so then testing
+I made sure that these would pass and that anything else would fail. Things like -- or ++
+with no space, and other random chars which may have broken my code.
+
+Testing of Valid_Var Line 54
+Testing was done for edge cases such as A and Z as well as some other capital letters,
+lover case letters were then tested as well as an assortment of other chars.
+
+Testing for Var_Num Line 89
+I defined a number as anything which started with a number or a - sign. Decimal were also
+allowed but anything starting with a decimal point was not e.g. .9384. 0.9384 is allowed.
+Testing for cases like these were done as well as testing for multiple decimal points,
+random chars and number letter combos which are not allowed.
+
+Testing Valid_Polish Line 156
+The testing for polish was left quite broad as the formal grammar is pretty lose. this
+meant that when testing Valid_Polish almost anything was allowed as long as it followed
+the formal grammar.
+
+Testing Valid_Set Line 236
+The same goes for Valid_Set, if it followed the formal grammar it was allowed.
+
+Testing of Valid_Fd, Valid_Lt and Valid_Rt Lines, 295, 325, 355 respectively
+Testing for all of theses functions followed a very similar logic as they basically just
+call other functions to do there checking for them. this meant that I was just checking
+that they could take a short string such as FD 10 and hand it off its individual parts
+correctly to the right functions.
+
+Testing for rest Lines, 386, 477, 617 respectively 
+Valid_Do, Valid_Instruct, Valid_Instructlst and Par_Main all again only really dealt with
+breaking down the strings being fead into them, this meant that the testing for all of
+them was similar. Testing was done to make sure that these functions enforce the formal
+grammar by running different combinations of strings returning whether the strings where
+valid or not. Thinks like whether the input had brackets in the right place and that there
+is nothing after the finishing bracket was tested as well as testing with lower case or
+invalid numbers to make sure that all the functions were working together.
+

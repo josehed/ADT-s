@@ -1,0 +1,20 @@
+{
+  FD 56
+  LT 76
+  SET C := 2.3 0.98 / ;
+  DO A FROM 90 TO 7 { 
+    DO B FROM 6 TO 7 {
+      FD 50
+    }
+    FD 8
+    RT 10
+  }
+  FD 8.4
+  SET C := 5 8 + ;
+  DO A FROM -8 TO 7 { 
+    FD 8
+    RT 10
+  }
+}
+
+

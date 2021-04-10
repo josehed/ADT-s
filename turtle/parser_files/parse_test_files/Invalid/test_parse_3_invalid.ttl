@@ -1,0 +1,11 @@
+{
+  FD 56
+  LT 76
+  FD 8.4
+  DO A FROM -8 TO 7 {
+    FD 8
+    RT 10
+  }
+}
+}
+
